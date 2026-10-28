@@ -3,6 +3,7 @@
 These tests deliberately cover only ordinary examples. They show how pytest works,
 but they are not a sufficient test suite for the specification in SPECIFICATION.md.
 """
+import pytest
 
 from weather import (
     average_temperature,
@@ -15,10 +16,16 @@ from weather import (
 
 def test_parse_time_regular_time():
     assert parse_time("14:21") == 861
-
+    with pytest.raises(ValueError):
+        parse_time("14.23:21.45")
+    with pytest.raises(ValueError):
+        parse_time("00:60")
 
 def test_parse_measurement_regular_line():
     assert parse_measurement("Köln;14:21;21.7") == ("Köln", 861, 21.7)
+    with pytest.raises(ValueError):
+        parse_measurement("11;11:11;11.0")
+    
 
 
 def test_filter_by_temperature_regular_values():
