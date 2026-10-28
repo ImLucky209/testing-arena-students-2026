@@ -24,7 +24,7 @@ def test_parse_time_regular_time():
 def test_parse_measurement_regular_line():
     assert parse_measurement("Köln;14:21;21.7") == ("Köln", 861, 21.7)
     with pytest.raises(ValueError):
-        parse_measurement("Köln,14:21,21.7")
+        parse_measurement("Köln;1421;21.7")
 
     
 
